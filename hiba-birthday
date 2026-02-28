@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hiba’s Birthday ✨</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <!-- Intro screen -->
+    <section class="screen active" id="screen-intro">
+      <div class="card">
+        <h1 class="title">Hey Hiba… 🌸</h1>
+        <p class="subtitle">I need to ask you something.</p>
+        <button class="btn primary" id="startBtn">Start</button>
+      </div>
+    </section>
+
+    <!-- Questions screen -->
+    <section class="screen" id="screen-quiz">
+      <div class="card">
+        <div class="progress" id="progress"></div>
+        <h2 class="question" id="questionText"></h2>
+        <div class="buttons">
+          <button class="btn" id="noBtn">No</button>
+          <button class="btn primary" id="yesBtn">Yes</button>
+        </div>
+        <p class="tiny" id="hint"></p>
+      </div>
+    </section>
+
+    <!-- Finale screen -->
+    <section class="screen" id="screen-finale">
+      <div id="p5-holder"></div>
+      <div class="finale-overlay">
+        <h1 class="finale-title">Happy Birthday, Hiba 🎂✨</h1>
+        <p class="finale-sub" id="finaleMessage">
+          to one of the greatest people I’ve ever met in my life.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+  <script src="script.js"></script>
+  <script src="animation.js"></script>
+</body>
+</html>
