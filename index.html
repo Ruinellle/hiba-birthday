@@ -6,7 +6,8 @@
   <title>Hiba’s Birthday ✨</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+
+<body style="margin:0; overflow:hidden; background:#000;">
   <main id="app">
     <!-- Intro screen -->
     <section class="screen active" id="screen-intro">
@@ -22,22 +23,31 @@
       <div class="card">
         <div class="progress" id="progress"></div>
         <h2 class="question" id="questionText"></h2>
+
         <div class="buttons">
           <button class="btn" id="noBtn">No</button>
           <button class="btn primary" id="yesBtn">Yes</button>
         </div>
+
         <p class="tiny" id="hint"></p>
+
+        <!-- Pixel runner mini animation (bottom of questions card) -->
+        <canvas id="runnerCanvas" width="520" height="90"></canvas>
+      </div>
+
+      <!-- Meme popup overlay for "No" clicks -->
+      <div id="memePop" class="meme-pop">
+        <img id="memeImg" alt="meme" />
       </div>
     </section>
 
     <!-- Finale screen -->
     <section class="screen" id="screen-finale">
       <div id="p5-holder"></div>
-      <div class="photo-gallery">
-  <img src="images/hiba1.jpeg" class="photo p1">
-  <img src="images/hiba2.jpeg" class="photo p2">
-  <img src="images/hiba3.jpeg" class="photo p3">
-</div>
+
+      <!-- JS will generate duplicates + movement here -->
+      <div class="photo-gallery" id="photoGallery"></div>
+
       <div class="finale-overlay">
         <h1 class="finale-title">Happy Birthday, Hiba 🎂✨</h1>
         <p class="finale-sub" id="finaleMessage">
