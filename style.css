@@ -138,3 +138,68 @@ body{overflow:hidden; color:var(--text);}
   50% { transform:translateY(-15px); }
   100% { transform:translateY(0px); }
 }
+/* ---- DRAMA EFFECTS ---- */
+.shake {
+  animation: screenShake 380ms ease-in-out;
+}
+
+@keyframes screenShake {
+  0%   { transform: translate(0,0) rotate(0deg); }
+  15%  { transform: translate(-8px, 4px) rotate(-0.3deg); }
+  30%  { transform: translate(10px, -6px) rotate(0.4deg); }
+  45%  { transform: translate(-10px, -2px) rotate(-0.4deg); }
+  60%  { transform: translate(8px, 6px) rotate(0.3deg); }
+  75%  { transform: translate(-6px, 2px) rotate(-0.2deg); }
+  100% { transform: translate(0,0) rotate(0deg); }
+}
+
+/* Meme popup: center pop + bounce bigger */
+.meme-pop{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(0,0,0,.28);
+}
+
+.meme-pop.show{ display: flex; }
+
+.meme-pop img{
+  width: min(460px, 88vw);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.45);
+  transform: scale(.2);
+  opacity: 0;
+  animation: memePopIn 520ms cubic-bezier(.2, 1.4, .3, 1) forwards;
+}
+
+@keyframes memePopIn{
+  0%   { transform: scale(.2); opacity: 0; }
+  55%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* YES sparkles/hearts burst particles */
+.burst-layer{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.particle{
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.6);
+  animation: popFly 720ms ease-out forwards;
+  text-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+@keyframes popFly{
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(.5); }
+  15%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(.9); }
+}
