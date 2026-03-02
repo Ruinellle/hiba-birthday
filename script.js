@@ -33,19 +33,52 @@ const questions = [
   { q: "Okay last one… ready for your surprise?", yes: "Let’s gooo!!", no: "Too late 😈" },
 ];
 
-// Upload meme images to /memes/ in your repo (example filenames)
+// Memes folder (you already have these!)
 const memeList = [
-  "memes/no1.jpg",
-  "memes/no2.jpg",
-  "memes/no3.jpg",
+  "memes/no1.jpeg",
+  "memes/no2.jpeg",
+  "memes/no3.jpeg",
 ];
 
-// Your photo paths (you already uploaded these in /images/)
+// Photos folder
 const photoSources = [
   "images/hiba1.jpeg",
   "images/hiba2.jpeg",
   "images/hiba3.jpeg",
 ];
+
+// ---------- YES burst layer (hearts + sparkles) ----------
+const burstLayer = document.createElement("div");
+burstLayer.className = "burst-layer";
+document.body.appendChild(burstLayer);
+
+function yesBurst() {
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+
+  const icons = ["✨","💖","💘","⭐","💞","✨","💗","🌟","💝"];
+  const count = 18;
+
+  for (let k = 0; k < count; k++) {
+    const el = document.createElement("div");
+    el.className = "particle";
+    el.textContent = icons[Math.floor(Math.random() * icons.length)];
+
+    const sx = cx + rand(-40, 40);
+    const sy = cy + rand(-30, 30);
+
+    const tx = sx + rand(-240, 240);
+    const ty = sy + rand(-200, 200);
+
+    el.style.left = `${sx}px`;
+    el.style.top = `${sy}px`;
+    el.style.setProperty("--tx", `${tx}px`);
+    el.style.setProperty("--ty", `${ty}px`);
+
+    burstLayer.appendChild(el);
+    setTimeout(() => el.remove(), 780);
+  }
+}
 
 // ---------- State ----------
 let i = 0;
@@ -77,6 +110,10 @@ startBtn.addEventListener("click", () => {
 // ---------- YES click ----------
 yesBtn.addEventListener("click", () => {
   hint.textContent = questions[i].yes;
+
+  // NEW: sparkly hearts burst
+  yesBurst();
+
   i++;
 
   if (i >= questions.length) {
@@ -107,7 +144,7 @@ noBtn.addEventListener("mouseenter", () => {
 noBtn.addEventListener("click", () => {
   hint.textContent = questions[i].no;
 
-  // show meme on No
+  // NEW: shake + meme pop
   showMeme();
 
   // dodge after question 3
@@ -122,15 +159,25 @@ function dodgeNoButton() {
   noBtn.style.top = `${dy}px`;
 }
 
-// ---------- Meme popup ----------
+// ---------- Meme popup (dramatic + shake) ----------
 function showMeme() {
   if (!memePop || !memeImg || memeList.length === 0) return;
 
   const src = memeList[Math.floor(Math.random() * memeList.length)];
   memeImg.src = src;
 
+  // Shake the whole app
+  const app = document.getElementById("app");
+  app?.classList.remove("shake");
+  void app?.offsetWidth; // restart animation
+  app?.classList.add("shake");
+
+  // Meme popup
   memePop.classList.add("show");
-  setTimeout(() => memePop.classList.remove("show"), 900);
+
+  // auto close
+  setTimeout(() => memePop.classList.remove("show"), 950);
+  setTimeout(() => app?.classList.remove("shake"), 450);
 }
 
 memePop?.addEventListener("click", () => memePop.classList.remove("show"));
@@ -213,7 +260,6 @@ function drawPixelGirl(ctx, x, y, stepPhase) {
   px(shoe, 3 + legB, 10 + bob, 2, 1);
 }
 
-// start runner immediately (it just draws on quiz screen area)
 if (runnerCanvas) runnerLoop();
 
 // ---------- Finale drifting photos (duplicates) ----------
@@ -286,6 +332,7 @@ function tickPhotos(t) {
   requestAnimationFrame(tickPhotos);
 }
 
+// ---------- utils ----------
 function rand(a, b) {
   return a + Math.random() * (b - a);
 }
